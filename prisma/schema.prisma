@@ -1,5 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 
 generator client {
   provider = "prisma-client-js"
@@ -46,6 +45,7 @@ model User {
   emailVerified DateTime?
   password      String?
   image         String?
+  role          String    @default("user") // Add role field with a default value
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -104,7 +104,7 @@ model VCardPublic {
   vCardId   String
   publicId  String   @unique
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now())
 
   vCard VCard @relation(fields: [vCardId], references: [id], onDelete: Cascade)
 }
@@ -147,7 +147,7 @@ model TeamMember {
   userId    String
   role      String   // "admin", "manager", "editor", "viewer"
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now())
 
   team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
